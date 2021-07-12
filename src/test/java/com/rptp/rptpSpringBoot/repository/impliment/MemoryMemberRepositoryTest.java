@@ -49,6 +49,13 @@ class MemoryMemberRepositoryTest {
     }
 
     @Test
+    public void 이름이_존재하지_않을_때() {
+        Optional<MemberDTO> adfajkdflajfaklsdfjaklsdf = repository.findByName("adfajkdflajfaklsdfjaklsdf");
+        Assertions.assertThat(adfajkdflajfaklsdfjaklsdf).isEqualTo(Optional.empty());
+
+    }
+
+    @Test
     public void findAll(){
         MemberDTO member1 = new MemberDTO();
         member1.setName("spring1");
