@@ -33,4 +33,8 @@ public class MemoryMemberRepository implements MemberRepository {
     public List<MemberDTO> findAll() {
         return new ArrayList<>(store.values());
     }
+
+    public void deleteAll() {
+        store.clear();
+    }
 }

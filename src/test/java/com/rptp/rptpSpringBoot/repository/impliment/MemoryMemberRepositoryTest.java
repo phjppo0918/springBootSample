@@ -12,15 +12,14 @@ import java.util.Optional;
 
 class MemoryMemberRepositoryTest {
 
-    MemberRepository repository = new MemoryMemberRepository();
+    MemoryMemberRepository repository = new MemoryMemberRepository();
 
-    /*
+
     @AfterEach
     public void afterEach() {
-        //중복 방지를 위하여 각 테스트 종료시 초기화 시켜줘야함
-
+        repository.deleteAll();
     }
-    */
+
 
 
     @Test
