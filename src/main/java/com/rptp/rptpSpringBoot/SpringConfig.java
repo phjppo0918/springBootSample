@@ -1,5 +1,6 @@
 package com.rptp.rptpSpringBoot;
 
+import com.rptp.rptpSpringBoot.aop.TimeTraceAop;
 import com.rptp.rptpSpringBoot.controller.BookController;
 import com.rptp.rptpSpringBoot.repository.BookRepository;
 import com.rptp.rptpSpringBoot.repository.impliment.MemoryBookRepository;
@@ -24,4 +25,5 @@ public class SpringConfig {
     public BookRepository bookRepository() {
         return new MemoryBookRepository();
     }
+
 }
