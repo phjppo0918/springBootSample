@@ -1,7 +1,14 @@
 package com.rptp.rptpSpringBoot.model;
 
+import javax.persistence.*;
+
+@Entity(name = "member")
 public class MemberDTO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    //@Column(name="name")
     private String name;
 
     public long getId() {

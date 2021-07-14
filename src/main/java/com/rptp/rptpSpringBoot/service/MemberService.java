@@ -5,6 +5,7 @@ import com.rptp.rptpSpringBoot.repository.MemberRepository;
 import com.rptp.rptpSpringBoot.repository.impliment.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,9 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
+
     //화원가입
+    @Transactional
     public Long join(MemberDTO memberDTO) {
         // 같은 이름의 있는 중복 회원 x
         validateDuplicateMember(memberDTO);
