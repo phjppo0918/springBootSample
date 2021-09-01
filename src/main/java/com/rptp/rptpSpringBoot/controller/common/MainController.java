@@ -19,4 +19,9 @@ public class MainController {
     public String signUp() {
         return "/sign-up";
     }
+
+    @GetMapping("sign-up-success")
+    public String signUpSuccess() {
+        return "/sign-up-success";
+    }
 }
