@@ -1,4 +1,4 @@
-package com.rptp.rptpSpringBoot.controller.common.api;
+package com.rptp.rptpSpringBoot.api;
 
 import com.rptp.rptpSpringBoot.core.member.dto.SignUpRequest;
 import com.rptp.rptpSpringBoot.core.member.service.MemberService;

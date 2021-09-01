@@ -1,4 +1,4 @@
-package com.rptp.rptpSpringBoot.controller.common;
+package com.rptp.rptpSpringBoot.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,4 +24,30 @@ public class MainController {
     public String signUpSuccess() {
         return "/sign-up-success";
     }
+
+    @GetMapping("login")
+    public String login() {
+        return "/login";
+    }
+
+    @GetMapping("login-success")
+    public String loginSuccess() {
+        return "/login-success";
+    }
+
+    @GetMapping("logout-success")
+    public String logoutSuccess() {
+        return "/logout-success";
+    }
+
+    @GetMapping("denied")
+    public String denied() {
+        return "/denied";
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "/admin";
+    }
+
 }

@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>RPTP</title>
 </head>
 <body>
-rptp 게시판
-<a th:href="@{/sign-up}">회원가입</a>
+<h1>메인 페이지</h1>
+<hr>
+<a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+<a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
+<a sec:authorize="isAnonymous()" th:href="@{/sign-up}">회원가입</a>
+<a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/user}">내정보</a>
+<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin}">어드민</a>
 </body>
 </html>

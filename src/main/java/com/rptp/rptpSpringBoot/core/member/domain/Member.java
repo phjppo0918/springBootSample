@@ -28,6 +28,8 @@ public class Member {
     @Column(nullable = false)
     private String nickName;
 
+    @Column(nullable = false)
+    private Role role = Role.GUEST;
     @Builder
     public Member(String name, String password, String profilePhoto, String nickName) {
         this.name = name;
