@@ -51,11 +51,11 @@ public class MemberService implements UserDetailsService {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if (("admin").equals(name)) {
-            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.name()));
-        } else {
-            authorities.add(new SimpleGrantedAuthority(Role.MEMBER.name()));
+        if (member.getRole() == Role.ADMIN) {
+            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
         }
+
+        authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
 
         return new User(member.getName(), member.getPassword(), authorities);
     }

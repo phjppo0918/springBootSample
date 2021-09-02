@@ -29,7 +29,9 @@ public class Member {
     private String nickName;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Role role = Role.GUEST;
+
     @Builder
     public Member(String name, String password, String profilePhoto, String nickName) {
         this.name = name;
