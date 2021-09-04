@@ -25,6 +25,8 @@ public class MainController {
         return "/sign-up-success";
     }
 
+    /*
+
     @GetMapping("login")
     public String login() {
         return "/login";
@@ -44,6 +46,8 @@ public class MainController {
     public String denied() {
         return "/denied";
     }
+
+     */
 
     @GetMapping("/admin")
     public String admin() {

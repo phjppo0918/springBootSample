@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.sql.Timestamp;
@@ -23,7 +24,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Component
+@Service
 public class TokenProvider {
 
     private static final String AUTHORITIES_KEY = "auth";
@@ -38,7 +39,7 @@ public class TokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public Token generateTokenDto(Authentication authentication) {
+    public Token generateToken(Authentication authentication) {
         // 권한들 가져오기
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
