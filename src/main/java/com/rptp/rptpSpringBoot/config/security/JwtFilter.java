@@ -1,4 +1,4 @@
-package com.rptp.rptpSpringBoot.common.security;
+package com.rptp.rptpSpringBoot.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

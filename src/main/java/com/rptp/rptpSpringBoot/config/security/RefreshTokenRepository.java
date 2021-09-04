@@ -1,7 +1,6 @@
-package com.rptp.rptpSpringBoot.common.security;
+package com.rptp.rptpSpringBoot.config.security;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 

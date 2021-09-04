@@ -1,4 +1,4 @@
-package com.rptp.rptpSpringBoot.common.security;
+package com.rptp.rptpSpringBoot.config.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

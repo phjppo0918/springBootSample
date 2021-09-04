@@ -1,6 +1,5 @@
-package com.rptp.rptpSpringBoot.common.security;
+package com.rptp.rptpSpringBoot.config.security;
 
-import com.rptp.rptpSpringBoot.core.member.domain.MemberRepository;
 import com.rptp.rptpSpringBoot.core.member.dto.LoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +14,6 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class AuthService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
@@ -25,9 +23,8 @@ public class AuthService {
     @Transactional
     public Token login(LoginRequest loginRequest) {
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
-
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginRequest.getName(),
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                         passwordEncoder.encode(loginRequest.getPassword()));
 
 

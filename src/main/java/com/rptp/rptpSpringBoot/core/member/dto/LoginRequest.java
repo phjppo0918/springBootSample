@@ -1,14 +1,12 @@
 package com.rptp.rptpSpringBoot.core.member.dto;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class LoginRequest {
-    private String name;
+    private String username;
     private String password;
 }
