@@ -1,5 +1,6 @@
 package com.rptp.rptpSpringBoot.core.member.service;
 
+import com.rptp.rptpSpringBoot.common.exceptions.ResourceNotFoundException;
 import com.rptp.rptpSpringBoot.core.member.domain.Member;
 import com.rptp.rptpSpringBoot.core.member.domain.MemberRepository;
 import com.rptp.rptpSpringBoot.core.member.domain.Role;
@@ -42,6 +43,13 @@ public class MemberService {
                 .imageUrl(req.getProfilePhoto())
                 .nickName(req.getNickName())
                 .build();
+    }
+
+    @Transactional(readOnly = true)
+    public Member findByMemberId(Long memberId){
+        return memberRepository.findById(memberId).orElseThrow(
+                () -> new ResourceNotFoundException("Member","id",memberId)
+        );
     }
 
 
