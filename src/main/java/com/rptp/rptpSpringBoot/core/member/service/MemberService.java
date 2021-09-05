@@ -25,7 +25,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService implements UserDetailsService {
+public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
@@ -39,25 +39,10 @@ public class MemberService implements UserDetailsService {
         return Member.builder()
                 .name(req.getName())
                 .password(passwordEncoder.encode(req.getPassword()))
-                .profilePhoto(req.getProfilePhoto())
+                .imageUrl(req.getProfilePhoto())
                 .nickName(req.getNickName())
                 .build();
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Member member = memberRepository.findByName(name)
-                .orElseThrow(() -> new UsernameNotFoundException(name + "은 존재하지 않습니다"));
-
-        List<GrantedAuthority> authorities = new ArrayList<>();
-
-        if (member.getRole() == Role.ADMIN) {
-            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-        }
-
-        authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
-
-        return new User(member.getName(), member.getPassword(), authorities);
-    }
 
 }

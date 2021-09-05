@@ -1,91 +1,81 @@
 package com.rptp.rptpSpringBoot.config.security;
 
+import com.rptp.rptpSpringBoot.config.security.oauth2.CustomOAuth2UserService;
+import com.rptp.rptpSpringBoot.config.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.rptp.rptpSpringBoot.config.security.oauth2.OAuth2AuthenticationFailureHandler;
+import com.rptp.rptpSpringBoot.core.member.domain.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
 @RequiredArgsConstructor
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(
+        securedEnabled = true,
+        jsr250Enabled = true,
+        prePostEnabled = true
+)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //private final MemberService memberService;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-    private final TokenProvider tokenProvider;
+    private final CustomUserDetailsService customUserDetailsService;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+    private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
+        return new TokenAuthenticationFilter();
+    }
+
+    @Bean
+    public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
+        return new HttpCookieOAuth2AuthorizationRequestRepository();
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        // static 디렉터리의 하위 파일 목록은 인증 무시 ( = 항상통과 )
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    public void configure(HttpSecurity http) throws Exception {
         http
-                // exception handling 할 때 우리가 만든 클래스를 추가
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
-
-                // h2-console 을 위한 설정을 추가
+                .cors()
                 .and()
-                .headers()
-                .frameOptions()
-                .sameOrigin()
 
-                // 시큐리티는 기본적으로 세션을 사용
-                // 여기서는 세션을 사용하지 않기 때문에 세션 설정을 Stateless 로 설정
-                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
                 .and()
+
+                .csrf().disable()
+                .formLogin().disable()
+                .httpBasic().disable()
                 .authorizeRequests()
-                // 페이지 권한 설정
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                //.antMatchers("/user").hasRole("MEMBER")
-                .antMatchers("/**").permitAll()
-
-                // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
+                .antMatchers("/").permitAll()
+                .antMatchers("/api/**").hasAnyRole(Role.GUEST.name(), Role.MEMBER.name(), Role.ADMIN.name())
+                .antMatchers("/auth/**", "/oauth2/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider));
 
+                .oauth2Login()
+                .authorizationEndpoint()
+                //클라이언트처음 로그인 시도 uri
+                .baseUri("/oauth2/authorization")
 
-                /*
-                .and() // 로그인 설정
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/login-success")
-                .permitAll()
-
+                .authorizationRequestRepository(cookieAuthorizationRequestRepository())
                 .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/logout-success")
-                .invalidateHttpSession(true)
 
+                .userInfoEndpoint()
+                .userService(customOAuth2UserService)
                 .and()
-                // 403 예외처리 핸들링
-                .exceptionHandling().accessDeniedPage("/denied");
-                 */
+
+                .successHandler(oAuth2AuthenticationSuccessHandler)
+                .failureHandler(oAuth2AuthenticationFailureHandler);
+
+        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
     }
-/*
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
-    }
-    */
 }
