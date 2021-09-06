@@ -1,4 +1,4 @@
-package com.rptp.rptpSpringBoot.api;
+package com.rptp.rptpSpringBoot.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

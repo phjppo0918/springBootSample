@@ -1,4 +1,4 @@
-package com.rptp.rptpSpringBoot.api;
+package com.rptp.rptpSpringBoot.controller;
 
 import com.rptp.rptpSpringBoot.config.security.TokenProvider;
 import com.rptp.rptpSpringBoot.core.member.dto.LoginRequest;

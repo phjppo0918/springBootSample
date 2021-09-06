@@ -1,4 +1,4 @@
-package com.rptp.rptpSpringBoot.api;
+package com.rptp.rptpSpringBoot.controller;
 
 import com.rptp.rptpSpringBoot.config.security.CurrentUser;
 import com.rptp.rptpSpringBoot.core.member.domain.Member;

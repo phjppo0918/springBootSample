@@ -1,8 +1,8 @@
-package com.rptp.rptpSpringBoot.api;
+package com.rptp.rptpSpringBoot.util;
 
 import lombok.Builder;
 import lombok.Getter;
-
+/*
 @Getter
 public class ApiResponse {
     private boolean success;
@@ -14,3 +14,6 @@ public class ApiResponse {
         this.message = message;
     }
 }
+
+
+ */
