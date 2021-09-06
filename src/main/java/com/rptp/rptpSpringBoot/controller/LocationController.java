@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
-public class MainController {
+public class LocationController {
 
     @GetMapping("")
     public String index(){
@@ -24,8 +24,6 @@ public class MainController {
     public String signUpSuccess() {
         return "/sign-up-success";
     }
-
-    /*
 
     @GetMapping("login")
     public String login() {
@@ -47,7 +45,6 @@ public class MainController {
         return "/denied";
     }
 
-     */
 
     @GetMapping("/admin")
     public String admin() {
