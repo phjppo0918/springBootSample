@@ -20,7 +20,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 //요청 허용 header
                 .allowedHeaders("*")
                 //cookie 허용
-                .allowCredentials(true)
+                //.allowCredentials(true)
                 .maxAge(MAX_AGE_SECS);
     }
 }
