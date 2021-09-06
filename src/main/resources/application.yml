@@ -13,6 +13,16 @@ spring:
   profiles:
     include: oauth, mysql
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 886589044744-g46qd1c6mpta8st1i9tqm5lek8vqa8hr.apps.googleusercontent.com
+            client-secret: 111
+            scope: profile,email
+
+
 app:
   auth:
     token-secret: 926D96C90030DD58429D2751AC1BDBBC
