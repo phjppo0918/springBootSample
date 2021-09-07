@@ -30,32 +30,17 @@ public class PuppyResponse {
 
     private String vetName;
 
-    public PuppyResponse(Long puppyId, String name, Integer age, String breed) {
-        this.puppyId = puppyId;
-        this.name = name;
-        this.age = age;
-        this.breed = breed;
-    }
-
     public static PuppyResponse of(Puppy puppy) {
-        Optional<Vet> vet = Optional.ofNullable(puppy.getVet());
-        if(vet.isPresent()) {
-            return new PuppyResponse(
-                    puppy.getPuppyId(),
-                    puppy.getName(),
-                    puppy.getAge(),
-                    puppy.getBreed(),
-                    vet.get().getVetId(),
-                    vet.get().getName()
-            );
-        }else {
-            return new PuppyResponse(
-                    puppy.getPuppyId(),
-                    puppy.getName(),
-                    puppy.getAge(),
-                    puppy.getBreed()
-            );
-        }
+        Vet vet = Optional.ofNullable(puppy.getVet()).orElseGet(Vet::new);
+
+        return new PuppyResponse(
+                puppy.getPuppyId(),
+                puppy.getName(),
+                puppy.getAge(),
+                puppy.getBreed(),
+                vet.getVetId(),
+                vet.getName()
+        );
     }
 
     public static List<PuppyResponse> listOf(List<Puppy> puppies) {
