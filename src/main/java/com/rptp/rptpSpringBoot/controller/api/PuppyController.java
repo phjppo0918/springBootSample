@@ -3,6 +3,7 @@ package com.rptp.rptpSpringBoot.controller.api;
 import com.rptp.rptpSpringBoot.core.puppy.dto.PuppyResponse;
 import com.rptp.rptpSpringBoot.core.puppy.service.PuppyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +19,12 @@ public class PuppyController {
     private final PuppyService puppyService;
 
     @GetMapping("")
-    public List<PuppyResponse> getPuppies() {
-        return puppyService.findAll();
+    public ResponseEntity<List<PuppyResponse>> getPuppies() {
+        return ResponseEntity.ok(puppyService.findAll());
     }
 
     @GetMapping("/{id}")
-    public PuppyResponse getPuppy(@PathVariable("id") Long id) {
-        return puppyService.findPuppy(id);
+    public ResponseEntity<PuppyResponse> getPuppy(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(puppyService.findPuppy(id));
     }
 }
