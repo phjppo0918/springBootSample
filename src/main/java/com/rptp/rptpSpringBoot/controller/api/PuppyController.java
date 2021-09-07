@@ -17,7 +17,7 @@ public class PuppyController {
 
     private final PuppyService puppyService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<PuppyResponse> getPuppies() {
         return puppyService.findAll();
     }
