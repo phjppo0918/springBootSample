@@ -1,0 +1,26 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+:operation-http-request-title: Example Request
+:operation-http-response-title: Example Response
+
+[[resources]]
+= Resources
+
+[[resources-puppy]]
+== Puppy
+
+[[resources-puppy-findAll]]
+=== puppy 전체 조회
+operation::puppy/findAll[snippets='http-request,http-response,response-body']
+
+[[resources-puppy-find]]
+=== puppy 조회
+operation::puppy/find[snippets='http-request,http-response,response-body']
+
